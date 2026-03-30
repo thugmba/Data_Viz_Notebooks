@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Viz S15 – Section 3: Creating Dashboards and Business Reports</title>
+  <style>
+    :root {
+      --primary:    #047857;
+      --accent:     #10b981;
+      --text:       #1e293b;
+      --text-muted: #64748b;
+      --bg:         #f8fafc;
+      --card-bg:    #ffffff;
+      --border:     #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1280px; height: 720px; overflow: hidden;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: var(--bg); color: var(--text);
+    }
+    .slide {
+      display: flex; flex-direction: column;
+      width: 1280px; height: 720px;
+      padding: 32px 44px 24px; gap: 18px;
+    }
+    .header { display: flex; flex-direction: column; gap: 4px; }
+    .module-label {
+      font-size: 11.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.8px; color: var(--accent);
+    }
+    .section-title { font-size: 30px; font-weight: 800; color: var(--text); line-height: 1.15; }
+    .section-subtitle { font-size: 13.5px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.3px; }
+    .divider { width: 56px; height: 3px; background: var(--primary); border-radius: 2px; margin-top: 8px; }
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr); gap: 14px; flex: 1;
+    }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 22px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; }
+    .card-icon { font-size: 22px; line-height: 1; }
+    .card-title { font-size: 14.5px; font-weight: 700; color: var(--text); }
+    .card-list { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+    .card-list li {
+      font-size: 12px; color: var(--text-muted);
+      padding-left: 14px; position: relative; line-height: 1.5;
+    }
+    .card-list li::before { content: "›"; position: absolute; left: 0; color: var(--primary); font-weight: 800; }
+    .card.accent { background: #064e3b; border-color: #064e3b; }
+    .card.accent .card-title { color: #ffffff; }
+    .card.accent .card-list li { color: rgba(255,255,255,0.82); }
+    .card.accent .card-list li::before { color: rgba(255,255,255,0.5); }
+    .footer {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--text-muted);
+      border-top: 1px solid var(--border); padding-top: 10px;
+    }
+    .footer-right { font-weight: 600; letter-spacing: 0.3px; }
+  </style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <span class="module-label">Module 4 · Interactive Visualization with Plotly</span>
+    <h1 class="section-title">Section 3: Creating Dashboards and Business Reports</h1>
+    <p class="section-subtitle">Dashboard Anatomy · make_subplots · KPI Indicators · Layout Design · Export</p>
+    <div class="divider"></div>
+  </div>
+  <div class="cards-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📋</span>
+          <span class="card-title">Dashboard Design Principles</span>
+        </div>
+        <ul class="card-list"><li>Clear hierarchy: KPIs top → supporting detail below</li><li>Context and comparison: vs. target, vs. prior period</li><li>Appropriate density: 4–8 charts maximum per view</li><li>Every chart answers a specific business question</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🔲</span>
+          <span class="card-title">make_subplots()</span>
+        </div>
+        <ul class="card-list"><li><code>from plotly.subplots import make_subplots</code></li><li><code>make_subplots(rows=2, cols=2, subplot_titles=[...])</code></li><li>Mixed types: <code>specs=[[{"type":"indicator"}, {"type":"bar"}]]</code></li><li><code>fig.add_trace(trace, row=1, col=2)</code></li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📟</span>
+          <span class="card-title">KPI Indicators</span>
+        </div>
+        <ul class="card-list"><li><code>go.Indicator(mode="number+delta", value=...)</code></li><li>Delta shows change vs. a reference value</li><li>Gauge mode for progress-toward-target visualization</li><li>Combine with sparkline traces for trend context</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎨</span>
+          <span class="card-title">Layout & Theming</span>
+        </div>
+        <ul class="card-list"><li><code>fig.update_layout(template="plotly_white")</code></li><li>Shared color palette via <code>colorway</code> in layout</li><li>Consistent font: <code>font=dict(family="Arial", size=12)</code></li><li>Hide axes on indicator panels: <code>xaxis_visible=False</code></li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📤</span>
+          <span class="card-title">Exporting Reports</span>
+        </div>
+        <ul class="card-list"><li><code>fig.write_html("dashboard.html")</code> — interactive</li><li><code>fig.write_image("report.png", width=1920, height=1080)</code></li><li>Embed HTML in emails or LMS for stakeholder sharing</li><li>No software installation needed to view HTML output</li></ul>
+      </div>
+      <div class="card accent">
+        <div class="card-header">
+          <span class="card-icon">🧪</span>
+          <span class="card-title">Lab 3 — Business Dashboards</span>
+        </div>
+        <ul class="card-list"><li>Part A: Executive KPI dashboard with indicators + charts</li><li>Part B: Operational performance multi-panel dashboard</li><li>Apply consistent theme, fonts, and color palette</li><li>Export as standalone HTML for stakeholder sharing</li></ul>
+      </div>
+  </div>
+  <div class="footer">
+    <span>MKTG 1173 · Data Visualization</span>
+    <span class="footer-right">Viz_S15.ipynb</span>
+  </div>
+</div>
+</body>
+</html>

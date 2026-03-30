@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Viz S2 – Section 2: Python Basics for Data Visualization</title>
+  <style>
+    :root {
+      --primary:    #0e7490;
+      --accent:     #06b6d4;
+      --text:       #1e293b;
+      --text-muted: #64748b;
+      --bg:         #f8fafc;
+      --card-bg:    #ffffff;
+      --border:     #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1280px; height: 720px; overflow: hidden;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: var(--bg); color: var(--text);
+    }
+    .slide {
+      display: flex; flex-direction: column;
+      width: 1280px; height: 720px;
+      padding: 32px 44px 24px; gap: 18px;
+    }
+    .header { display: flex; flex-direction: column; gap: 4px; }
+    .module-label {
+      font-size: 11.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.8px; color: var(--accent);
+    }
+    .section-title { font-size: 30px; font-weight: 800; color: var(--text); line-height: 1.15; }
+    .section-subtitle { font-size: 13.5px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.3px; }
+    .divider { width: 56px; height: 3px; background: var(--primary); border-radius: 2px; margin-top: 8px; }
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr); gap: 14px; flex: 1;
+    }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 22px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; }
+    .card-icon { font-size: 22px; line-height: 1; }
+    .card-title { font-size: 14.5px; font-weight: 700; color: var(--text); }
+    .card-list { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+    .card-list li {
+      font-size: 12px; color: var(--text-muted);
+      padding-left: 14px; position: relative; line-height: 1.5;
+    }
+    .card-list li::before { content: "›"; position: absolute; left: 0; color: var(--primary); font-weight: 800; }
+    .card.accent { background: #164e63; border-color: #164e63; }
+    .card.accent .card-title { color: #ffffff; }
+    .card.accent .card-list li { color: rgba(255,255,255,0.82); }
+    .card.accent .card-list li::before { color: rgba(255,255,255,0.5); }
+    .footer {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--text-muted);
+      border-top: 1px solid var(--border); padding-top: 10px;
+    }
+    .footer-right { font-weight: 600; letter-spacing: 0.3px; }
+  </style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <span class="module-label">Module 1 · Foundations of Python and Data Handling</span>
+    <h1 class="section-title">Section 2: Python Basics for Data Visualization</h1>
+    <p class="section-subtitle">Variables · Data Types · Lists · Dictionaries · Control Flow · Functions</p>
+    <div class="divider"></div>
+  </div>
+  <div class="cards-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🔢</span>
+          <span class="card-title">Variables & Data Types</span>
+        </div>
+        <ul class="card-list"><li>Strings <code>str</code>, integers <code>int</code>, floats <code>float</code>, booleans <code>bool</code></li><li>Dynamic typing — no need to declare types</li><li>Type conversion: <code>int()</code>, <code>float()</code>, <code>str()</code></li><li>Naming conventions: lowercase with underscores</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📋</span>
+          <span class="card-title">Lists & Indexing</span>
+        </div>
+        <ul class="card-list"><li>Ordered, mutable collections: <code>[1, 2, 3]</code></li><li>Zero-based indexing and negative indexing</li><li>Slicing: <code>list[1:4]</code> to extract subsets</li><li>Methods: <code>append</code>, <code>extend</code>, <code>sort</code>, <code>len</code></li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📚</span>
+          <span class="card-title">Dictionaries</span>
+        </div>
+        <ul class="card-list"><li>Key-value pairs: <code>{"name": "Alice", "sales": 5000}</code></li><li>Fast lookup by key; keys must be unique</li><li>Nested dicts for structured records</li><li>Methods: <code>.keys()</code>, <code>.values()</code>, <code>.items()</code></li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🔀</span>
+          <span class="card-title">Control Flow</span>
+        </div>
+        <ul class="card-list"><li><code>if / elif / else</code> for conditional logic</li><li><code>for</code> loops to iterate over lists and dicts</li><li>List comprehensions: <code>[x*2 for x in data]</code></li><li>Boolean operators: <code>and</code>, <code>or</code>, <code>not</code></li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🔧</span>
+          <span class="card-title">Functions</span>
+        </div>
+        <ul class="card-list"><li>Define with <code>def</code>, return values with <code>return</code></li><li>Parameters and default argument values</li><li>Scope: local vs. global variables</li><li>Reusable code blocks for data transformations</li></ul>
+      </div>
+      <div class="card accent">
+        <div class="card-header">
+          <span class="card-icon">🧪</span>
+          <span class="card-title">Lab 2 — Python Fundamentals Practice</span>
+        </div>
+        <ul class="card-list"><li>Create lists and dictionaries for sales data</li><li>Write loops to compute totals and averages</li><li>Define functions to clean and transform data</li><li>Use comprehensions to filter and reshape datasets</li></ul>
+      </div>
+  </div>
+  <div class="footer">
+    <span>MKTG 1173 · Data Visualization</span>
+    <span class="footer-right">Viz_S2.ipynb</span>
+  </div>
+</div>
+</body>
+</html>

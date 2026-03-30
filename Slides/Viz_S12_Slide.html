@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Viz S12 – Section 4: Heatmaps and Correlation Analysis</title>
+  <style>
+    :root {
+      --primary:    #7c3aed;
+      --accent:     #8b5cf6;
+      --text:       #1e293b;
+      --text-muted: #64748b;
+      --bg:         #f8fafc;
+      --card-bg:    #ffffff;
+      --border:     #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1280px; height: 720px; overflow: hidden;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: var(--bg); color: var(--text);
+    }
+    .slide {
+      display: flex; flex-direction: column;
+      width: 1280px; height: 720px;
+      padding: 32px 44px 24px; gap: 18px;
+    }
+    .header { display: flex; flex-direction: column; gap: 4px; }
+    .module-label {
+      font-size: 11.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.8px; color: var(--accent);
+    }
+    .section-title { font-size: 30px; font-weight: 800; color: var(--text); line-height: 1.15; }
+    .section-subtitle { font-size: 13.5px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.3px; }
+    .divider { width: 56px; height: 3px; background: var(--primary); border-radius: 2px; margin-top: 8px; }
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr); gap: 14px; flex: 1;
+    }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 22px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; }
+    .card-icon { font-size: 22px; line-height: 1; }
+    .card-title { font-size: 14.5px; font-weight: 700; color: var(--text); }
+    .card-list { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+    .card-list li {
+      font-size: 12px; color: var(--text-muted);
+      padding-left: 14px; position: relative; line-height: 1.5;
+    }
+    .card-list li::before { content: "›"; position: absolute; left: 0; color: var(--primary); font-weight: 800; }
+    .card.accent { background: #4c1d95; border-color: #4c1d95; }
+    .card.accent .card-title { color: #ffffff; }
+    .card.accent .card-list li { color: rgba(255,255,255,0.82); }
+    .card.accent .card-list li::before { color: rgba(255,255,255,0.5); }
+    .footer {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--text-muted);
+      border-top: 1px solid var(--border); padding-top: 10px;
+    }
+    .footer-right { font-weight: 600; letter-spacing: 0.3px; }
+  </style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <span class="module-label">Module 3 · Statistical Visualization with Seaborn</span>
+    <h1 class="section-title">Section 4: Heatmaps and Correlation Analysis</h1>
+    <p class="section-subtitle">Correlation Matrix · Heatmaps · Cluster Maps · Pivot Heatmaps · Interpretation</p>
+    <div class="divider"></div>
+  </div>
+  <div class="cards-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🌡️</span>
+          <span class="card-title">Correlation Matrix</span>
+        </div>
+        <ul class="card-list"><li><code>df.corr()</code> — Pearson by default; add <code>method="spearman"</code></li><li>Values range −1 (inverse) to +1 (perfect positive)</li><li>Diagonal is always 1.0 (self-correlation)</li><li>Mask upper triangle to avoid redundant information</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🔥</span>
+          <span class="card-title">Heatmaps</span>
+        </div>
+        <ul class="card-list"><li><code>sns.heatmap(df.corr(), annot=True, fmt=".2f")</code></li><li>Colormaps: <code>coolwarm</code>, <code>RdBu_r</code>, <code>viridis</code></li><li><code>center=0</code> for diverging palette centered at zero</li><li><code>mask</code> parameter hides upper or lower triangle</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🧩</span>
+          <span class="card-title">Cluster Maps</span>
+        </div>
+        <ul class="card-list"><li><code>sns.clustermap(df.corr())</code> — hierarchical clustering</li><li>Groups similar variables and similar observations</li><li>Reveals natural structure hidden in flat heatmaps</li><li>Useful for customer segmentation and feature grouping</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📋</span>
+          <span class="card-title">Pivot Table Heatmaps</span>
+        </div>
+        <ul class="card-list"><li><code>df.pivot_table(values, index, columns, aggfunc)</code></li><li>Visualize performance across two categorical dimensions</li><li>E.g., revenue by region × product category</li><li>Highlight cells with a diverging colormap</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">💡</span>
+          <span class="card-title">Interpreting Correlations</span>
+        </div>
+        <ul class="card-list"><li>|r| > 0.7 = strong; 0.4–0.7 = moderate; < 0.4 = weak</li><li>Multicollinearity: highly correlated predictors cause issues</li><li>Confounding variables can inflate apparent correlations</li><li>Always validate with domain knowledge and scatter plots</li></ul>
+      </div>
+      <div class="card accent">
+        <div class="card-header">
+          <span class="card-icon">🧪</span>
+          <span class="card-title">Lab 4 — Heatmap Analysis</span>
+        </div>
+        <ul class="card-list"><li>Part A: Business metrics comprehensive correlation heatmap</li><li>Part B: Revenue driver deep dive with scatter validation</li><li>Part C: Marketing performance pivot table heatmap</li><li>Annotate key correlations with business interpretations</li></ul>
+      </div>
+  </div>
+  <div class="footer">
+    <span>MKTG 1173 · Data Visualization</span>
+    <span class="footer-right">Viz_S12.ipynb</span>
+  </div>
+</div>
+</body>
+</html>

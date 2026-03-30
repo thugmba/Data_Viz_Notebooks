@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Viz S10 – Section 2: Distribution and Relationship Visualizations</title>
+  <style>
+    :root {
+      --primary:    #7c3aed;
+      --accent:     #8b5cf6;
+      --text:       #1e293b;
+      --text-muted: #64748b;
+      --bg:         #f8fafc;
+      --card-bg:    #ffffff;
+      --border:     #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1280px; height: 720px; overflow: hidden;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: var(--bg); color: var(--text);
+    }
+    .slide {
+      display: flex; flex-direction: column;
+      width: 1280px; height: 720px;
+      padding: 32px 44px 24px; gap: 18px;
+    }
+    .header { display: flex; flex-direction: column; gap: 4px; }
+    .module-label {
+      font-size: 11.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.8px; color: var(--accent);
+    }
+    .section-title { font-size: 30px; font-weight: 800; color: var(--text); line-height: 1.15; }
+    .section-subtitle { font-size: 13.5px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.3px; }
+    .divider { width: 56px; height: 3px; background: var(--primary); border-radius: 2px; margin-top: 8px; }
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr); gap: 14px; flex: 1;
+    }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 22px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; }
+    .card-icon { font-size: 22px; line-height: 1; }
+    .card-title { font-size: 14.5px; font-weight: 700; color: var(--text); }
+    .card-list { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+    .card-list li {
+      font-size: 12px; color: var(--text-muted);
+      padding-left: 14px; position: relative; line-height: 1.5;
+    }
+    .card-list li::before { content: "›"; position: absolute; left: 0; color: var(--primary); font-weight: 800; }
+    .card.accent { background: #4c1d95; border-color: #4c1d95; }
+    .card.accent .card-title { color: #ffffff; }
+    .card.accent .card-list li { color: rgba(255,255,255,0.82); }
+    .card.accent .card-list li::before { color: rgba(255,255,255,0.5); }
+    .footer {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--text-muted);
+      border-top: 1px solid var(--border); padding-top: 10px;
+    }
+    .footer-right { font-weight: 600; letter-spacing: 0.3px; }
+  </style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <span class="module-label">Module 3 · Statistical Visualization with Seaborn</span>
+    <h1 class="section-title">Section 2: Distribution and Relationship Visualizations</h1>
+    <p class="section-subtitle">Scatter Plots · Regression · Pair Plots · Joint Plots · Correlation</p>
+    <div class="divider"></div>
+  </div>
+  <div class="cards-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🔵</span>
+          <span class="card-title">Scatter Plots in Seaborn</span>
+        </div>
+        <ul class="card-list"><li><code>sns.scatterplot(data=df, x="a", y="b", hue="cat")</code></li><li>Encode extra dimensions: <code>size</code>, <code>style</code>, <code>hue</code></li><li>Identify clusters and outliers in business data</li><li>Built-in legend from hue, size, and style parameters</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📏</span>
+          <span class="card-title">Regression Plots</span>
+        </div>
+        <ul class="card-list"><li><code>sns.regplot(x, y)</code> — scatter + linear fit + CI band</li><li><code>sns.lmplot()</code> — regplot with category faceting</li><li>Confidence band width reflects uncertainty of the fit</li><li><code>order=2</code> for polynomial regression curves</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🔲</span>
+          <span class="card-title">Pair Plots</span>
+        </div>
+        <ul class="card-list"><li><code>sns.pairplot(df, hue="segment")</code></li><li>All pairwise scatter plots + diagonal histograms</li><li>Instantly reveals which variable pairs correlate</li><li>Use <code>vars=["a","b","c"]</code> to limit columns shown</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🔀</span>
+          <span class="card-title">Joint Plots</span>
+        </div>
+        <ul class="card-list"><li><code>sns.jointplot(data=df, x="a", y="b", kind="hex")</code></li><li>Marginal distributions on both x and y axes</li><li>Kinds: scatter, kde, hex, hist, reg</li><li>Best for deep bivariate analysis of two variables</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📐</span>
+          <span class="card-title">Correlation Analysis</span>
+        </div>
+        <ul class="card-list"><li>Pearson r: linear relationship strength (−1 to +1)</li><li><code>df.corr()</code> computes the full correlation matrix</li><li>|r| > 0.7 = strong; 0.4–0.7 = moderate; < 0.4 = weak</li><li>Always visualize — correlation ≠ causation</li></ul>
+      </div>
+      <div class="card accent">
+        <div class="card-header">
+          <span class="card-icon">🧪</span>
+          <span class="card-title">Lab 2 — Relationship Visualizations</span>
+        </div>
+        <ul class="card-list"><li>Part A: Customer success metrics scatter exploration</li><li>Part B: Support response time impact regression plot</li><li>Part C: Revenue drivers pair plot and correlation matrix</li><li>Annotate key insights directly on each chart</li></ul>
+      </div>
+  </div>
+  <div class="footer">
+    <span>MKTG 1173 · Data Visualization</span>
+    <span class="footer-right">Viz_S10.ipynb</span>
+  </div>
+</div>
+</body>
+</html>

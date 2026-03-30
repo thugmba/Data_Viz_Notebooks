@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Viz S8 – Section 4: Business Charts (Bar, Line, and Pie Charts)</title>
+  <style>
+    :root {
+      --primary:    #1d4ed8;
+      --accent:     #3b82f6;
+      --text:       #1e293b;
+      --text-muted: #64748b;
+      --bg:         #f8fafc;
+      --card-bg:    #ffffff;
+      --border:     #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1280px; height: 720px; overflow: hidden;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: var(--bg); color: var(--text);
+    }
+    .slide {
+      display: flex; flex-direction: column;
+      width: 1280px; height: 720px;
+      padding: 32px 44px 24px; gap: 18px;
+    }
+    .header { display: flex; flex-direction: column; gap: 4px; }
+    .module-label {
+      font-size: 11.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.8px; color: var(--accent);
+    }
+    .section-title { font-size: 30px; font-weight: 800; color: var(--text); line-height: 1.15; }
+    .section-subtitle { font-size: 13.5px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.3px; }
+    .divider { width: 56px; height: 3px; background: var(--primary); border-radius: 2px; margin-top: 8px; }
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr); gap: 14px; flex: 1;
+    }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 22px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; }
+    .card-icon { font-size: 22px; line-height: 1; }
+    .card-title { font-size: 14.5px; font-weight: 700; color: var(--text); }
+    .card-list { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+    .card-list li {
+      font-size: 12px; color: var(--text-muted);
+      padding-left: 14px; position: relative; line-height: 1.5;
+    }
+    .card-list li::before { content: "›"; position: absolute; left: 0; color: var(--primary); font-weight: 800; }
+    .card.accent { background: #1e3a5f; border-color: #1e3a5f; }
+    .card.accent .card-title { color: #ffffff; }
+    .card.accent .card-list li { color: rgba(255,255,255,0.82); }
+    .card.accent .card-list li::before { color: rgba(255,255,255,0.5); }
+    .footer {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--text-muted);
+      border-top: 1px solid var(--border); padding-top: 10px;
+    }
+    .footer-right { font-weight: 600; letter-spacing: 0.3px; }
+  </style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <span class="module-label">Module 2 · Core Visualization with Matplotlib</span>
+    <h1 class="section-title">Section 4: Business Charts (Bar, Line, and Pie Charts)</h1>
+    <p class="section-subtitle">Grouped & Stacked Bars · Trend Lines · Pie & Donut · Chart Selection · Export</p>
+    <div class="divider"></div>
+  </div>
+  <div class="cards-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📊</span>
+          <span class="card-title">Bar Chart Variations</span>
+        </div>
+        <ul class="card-list"><li>Grouped bars: side-by-side category comparison</li><li>Stacked bars: part-to-whole within a category</li><li>Horizontal bars: ideal for long category labels</li><li>Data labels via <code>ax.text()</code> for exact values</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📈</span>
+          <span class="card-title">Line Charts for Trends</span>
+        </div>
+        <ul class="card-list"><li>Single and multi-line time series comparison</li><li>Dual y-axis: <code>ax.twinx()</code> for different scales</li><li>Area fill: <code>ax.fill_between()</code> for cumulative views</li><li>Annotate periods: <code>ax.axvspan()</code> for highlights</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🥧</span>
+          <span class="card-title">Pie & Donut Charts</span>
+        </div>
+        <ul class="card-list"><li><code>ax.pie(values, labels, autopct="%1.1f%%")</code></li><li>Explode a slice: <code>explode=[0.1, 0, 0, 0]</code></li><li>Donut: add a white circle patch to the center</li><li>Best for: ≤5 categories showing composition only</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎯</span>
+          <span class="card-title">Chart Selection Guide</span>
+        </div>
+        <ul class="card-list"><li>Trend over time → line chart</li><li>Category comparison → bar chart</li><li>Composition / share → pie or stacked bar</li><li>Correlation → scatter; distribution → histogram</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">💾</span>
+          <span class="card-title">Exporting for Business</span>
+        </div>
+        <ul class="card-list"><li>PNG for reports and presentations (300 DPI)</li><li>SVG for scalable web and print graphics</li><li>PDF for vector-quality document embedding</li><li><code>bbox_inches="tight"</code> prevents cropped labels</li></ul>
+      </div>
+      <div class="card accent">
+        <div class="card-header">
+          <span class="card-icon">🧪</span>
+          <span class="card-title">Lab 4 — Business Chart Suite</span>
+        </div>
+        <ul class="card-list"><li>Part A: Product category grouped & stacked bar chart</li><li>Part B: Monthly sales trend with area fill and dual axis</li><li>Create a donut chart for market share composition</li><li>Export all charts at 300 DPI with descriptive filenames</li></ul>
+      </div>
+  </div>
+  <div class="footer">
+    <span>MKTG 1173 · Data Visualization</span>
+    <span class="footer-right">Viz_S8.ipynb</span>
+  </div>
+</div>
+</body>
+</html>

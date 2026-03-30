@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Viz S4 – Section 4: Data Cleaning and Preparation</title>
+  <style>
+    :root {
+      --primary:    #0e7490;
+      --accent:     #06b6d4;
+      --text:       #1e293b;
+      --text-muted: #64748b;
+      --bg:         #f8fafc;
+      --card-bg:    #ffffff;
+      --border:     #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1280px; height: 720px; overflow: hidden;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: var(--bg); color: var(--text);
+    }
+    .slide {
+      display: flex; flex-direction: column;
+      width: 1280px; height: 720px;
+      padding: 32px 44px 24px; gap: 18px;
+    }
+    .header { display: flex; flex-direction: column; gap: 4px; }
+    .module-label {
+      font-size: 11.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.8px; color: var(--accent);
+    }
+    .section-title { font-size: 30px; font-weight: 800; color: var(--text); line-height: 1.15; }
+    .section-subtitle { font-size: 13.5px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.3px; }
+    .divider { width: 56px; height: 3px; background: var(--primary); border-radius: 2px; margin-top: 8px; }
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr); gap: 14px; flex: 1;
+    }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 22px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; }
+    .card-icon { font-size: 22px; line-height: 1; }
+    .card-title { font-size: 14.5px; font-weight: 700; color: var(--text); }
+    .card-list { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+    .card-list li {
+      font-size: 12px; color: var(--text-muted);
+      padding-left: 14px; position: relative; line-height: 1.5;
+    }
+    .card-list li::before { content: "›"; position: absolute; left: 0; color: var(--primary); font-weight: 800; }
+    .card.accent { background: #164e63; border-color: #164e63; }
+    .card.accent .card-title { color: #ffffff; }
+    .card.accent .card-list li { color: rgba(255,255,255,0.82); }
+    .card.accent .card-list li::before { color: rgba(255,255,255,0.5); }
+    .footer {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--text-muted);
+      border-top: 1px solid var(--border); padding-top: 10px;
+    }
+    .footer-right { font-weight: 600; letter-spacing: 0.3px; }
+  </style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <span class="module-label">Module 1 · Foundations of Python and Data Handling</span>
+    <h1 class="section-title">Section 4: Data Cleaning and Preparation</h1>
+    <p class="section-subtitle">Missing Data · Duplicates · Type Conversion · Outliers · Feature Engineering</p>
+    <div class="divider"></div>
+  </div>
+  <div class="cards-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🩺</span>
+          <span class="card-title">Data Quality Issues</span>
+        </div>
+        <ul class="card-list"><li>Missing values (NaN), duplicates, inconsistent formats</li><li>The 80/20 rule: 80% of effort is data preparation</li><li><code>df.isnull().sum()</code> — count missing per column</li><li><code>df.duplicated().sum()</code> — count duplicate rows</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🕳️</span>
+          <span class="card-title">Handling Missing Data</span>
+        </div>
+        <ul class="card-list"><li><code>df.dropna()</code> — remove rows/columns with NaN</li><li><code>df.fillna(value)</code> — fill with mean, median, or constant</li><li><code>df.fillna(method="ffill")</code> — forward fill time series</li><li>Decide: drop vs. fill based on % missing and context</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🔄</span>
+          <span class="card-title">Type Conversion</span>
+        </div>
+        <ul class="card-list"><li><code>df["col"].astype(float)</code> — convert dtype</li><li><code>pd.to_datetime(df["date"])</code> — parse dates</li><li>Strip whitespace: <code>df["col"].str.strip()</code></li><li>Standardize case: <code>.str.lower()</code>, <code>.str.title()</code></li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">📐</span>
+          <span class="card-title">Outlier Detection</span>
+        </div>
+        <ul class="card-list"><li>IQR method: Q1 − 1.5×IQR to Q3 + 1.5×IQR fence</li><li>Z-score: flag values beyond ±3 standard deviations</li><li>Visual check: boxplot before deciding to remove</li><li>Business context determines if outlier is error or signal</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🛠️</span>
+          <span class="card-title">Feature Engineering</span>
+        </div>
+        <ul class="card-list"><li>Derive new columns: revenue × margin = profit</li><li>Bin continuous values: <code>pd.cut()</code>, <code>pd.qcut()</code></li><li>Encode categoricals: <code>pd.get_dummies()</code></li><li>Date features: year, month, day_of_week from datetime</li></ul>
+      </div>
+      <div class="card accent">
+        <div class="card-header">
+          <span class="card-icon">🧪</span>
+          <span class="card-title">Lab 4 — Data Cleaning Pipeline</span>
+        </div>
+        <ul class="card-list"><li>Part A: Create a messy dataset with intentional errors</li><li>Part B: Data quality assessment — find all issues</li><li>Part C: Step-by-step cleaning — fix each problem</li><li>Part D: Outlier analysis with IQR and visualization</li></ul>
+      </div>
+  </div>
+  <div class="footer">
+    <span>MKTG 1173 · Data Visualization</span>
+    <span class="footer-right">Viz_S4.ipynb</span>
+  </div>
+</div>
+</body>
+</html>

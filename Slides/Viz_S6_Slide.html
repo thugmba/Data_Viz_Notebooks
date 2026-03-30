@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Viz S6 – Customizing Visualizations</title>
+  <style>
+    :root {
+      --primary:       #1a56db;
+      --accent:        #0891b2;
+      --text:          #1e293b;
+      --text-muted:    #64748b;
+      --bg:            #f8fafc;
+      --card-bg:       #ffffff;
+      --border:        #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .slide {
+      display: flex;
+      flex-direction: column;
+      width: 1280px;
+      height: 720px;
+      padding: 32px 44px 24px;
+      gap: 18px;
+    }
+
+    /* ── Header ── */
+    .header { display: flex; flex-direction: column; gap: 4px; }
+    .module-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      color: var(--accent);
+    }
+    .section-title {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+    }
+    .section-subtitle {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 3px;
+      letter-spacing: 0.3px;
+    }
+    .divider {
+      width: 56px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+      margin-top: 8px;
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 14px;
+      flex: 1;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 22px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-icon { font-size: 22px; line-height: 1; }
+    .card-title { font-size: 14.5px; font-weight: 700; color: var(--text); }
+    .card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 2px;
+    }
+    .card-list li {
+      font-size: 12px;
+      color: var(--text-muted);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .card-list li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    /* Accent (dark) card */
+    .card.accent {
+      background: #1e3a5f;
+      border-color: #1e3a5f;
+    }
+    .card.accent .card-title { color: #ffffff; }
+    .card.accent .card-list li { color: rgba(255,255,255,0.78); }
+    .card.accent .card-list li::before { color: #60a5fa; }
+
+    /* Color swatches on the colors card */
+    .swatches {
+      display: flex;
+      gap: 5px;
+      margin-top: 4px;
+    }
+    .swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+    .footer-right { font-weight: 600; letter-spacing: 0.3px; }
+  </style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- Header -->
+  <div class="header">
+    <span class="module-label">Module 2 &nbsp;·&nbsp; Core Visualization with Matplotlib</span>
+    <h1 class="section-title">Section 2: Customizing Visualizations</h1>
+    <p class="section-subtitle">Colors &nbsp;·&nbsp; Labels &nbsp;·&nbsp; Legends &nbsp;·&nbsp; Typography &nbsp;·&nbsp; Axes Formatting</p>
+    <div class="divider"></div>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards-grid">
+
+    <!-- Card 1: Colors -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🎨</span>
+        <span class="card-title">Colors</span>
+      </div>
+      <div class="swatches">
+        <div class="swatch" style="background:#1f77b4"></div>
+        <div class="swatch" style="background:#27AE60"></div>
+        <div class="swatch" style="background:#DC143C"></div>
+        <div class="swatch" style="background:#FFB000"></div>
+        <div class="swatch" style="background:#785EF0"></div>
+        <div class="swatch" style="background:#808080"></div>
+      </div>
+      <ul class="card-list">
+        <li>Named colors, hex codes <code>#1f77b4</code>, RGB tuples</li>
+        <li>Color psychology: blue = trust, green = growth, red = loss</li>
+        <li>Colorblind-friendly palettes (IBM: blue, orange, purple)</li>
+        <li>Conditional colors for profit/loss bar charts</li>
+      </ul>
+    </div>
+
+    <!-- Card 2: Labels -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🏷️</span>
+        <span class="card-title">Labels &amp; Titles</span>
+      </div>
+      <ul class="card-list">
+        <li>Specific titles: who, what, when — avoid "Sales Chart"</li>
+        <li>Always include units: <em>Revenue ($M)</em>, <em>Market Share (%)</em></li>
+        <li>Title hierarchy: 14–16 pt bold &gt; axis labels 12 pt</li>
+        <li>Subtitles via <code>ax.text()</code> for regional or date context</li>
+      </ul>
+    </div>
+
+    <!-- Card 3: Legends -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">📌</span>
+        <span class="card-title">Legends</span>
+      </div>
+      <ul class="card-list">
+        <li>Required whenever multiple series share an axis</li>
+        <li>Placement: <code>loc='best'</code>, or <code>bbox_to_anchor</code> outside plot</li>
+        <li>Styling: <code>shadow</code>, <code>fancybox</code>, <code>title</code>, <code>ncol</code></li>
+        <li>Multi-column layout for 4+ series to save vertical space</li>
+      </ul>
+    </div>
+
+    <!-- Card 4: Typography -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">🔤</span>
+        <span class="card-title">Typography</span>
+      </div>
+      <ul class="card-list">
+        <li>Global defaults via <code>plt.rcParams['font.family']</code></li>
+        <li>Recommended: Arial, Helvetica, DejaVu Sans</li>
+        <li>Properties: <code>fontweight</code>, <code>fontstyle</code>, <code>color</code></li>
+        <li>Hierarchy: title 16 pt › axis labels 12 pt › ticks 10 pt › annotations 9 pt</li>
+      </ul>
+    </div>
+
+    <!-- Card 5: Axes Formatting -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-icon">📐</span>
+        <span class="card-title">Axes &amp; Number Formatting</span>
+      </div>
+      <ul class="card-list">
+        <li><code>FuncFormatter</code>: display <em>$1.5M</em>, <em>85K</em>, <em>15%</em> on axes</li>
+        <li><code>StrMethodFormatter('{x:,.0f}')</code> for thousand separators</li>
+        <li><code>PercentFormatter</code> for ratio/proportion axes</li>
+        <li>Tick control: <code>set_xticks</code>, <code>MaxNLocator</code>, label rotation</li>
+      </ul>
+    </div>
+
+    <!-- Card 6: Lab (accent) -->
+    <div class="card accent">
+      <div class="card-header">
+        <span class="card-icon">🧪</span>
+        <span class="card-title">Lab 2 — Chart Customization</span>
+      </div>
+      <ul class="card-list">
+        <li><strong>Part A</strong> Revenue vs. Target dual-line chart (30 pts)</li>
+        <li><strong>Part B</strong> Regional sales horizontal bar chart (30 pts)</li>
+        <li><strong>Part C</strong> Product line multi-series comparison (25 pts)</li>
+        <li><strong>Part D</strong> Conditional profit margin bars (15 pts)</li>
+      </ul>
+    </div>
+
+  </div><!-- /cards-grid -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>MKTG 1173 &nbsp;·&nbsp; Data Visualization</span>
+    <span class="footer-right">Viz_S6.ipynb</span>
+  </div>
+
+</div>
+</body>
+</html>

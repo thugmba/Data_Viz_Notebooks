@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Viz S13 – Section 1: Introduction to Plotly and Interactive Charts</title>
+  <style>
+    :root {
+      --primary:    #047857;
+      --accent:     #10b981;
+      --text:       #1e293b;
+      --text-muted: #64748b;
+      --bg:         #f8fafc;
+      --card-bg:    #ffffff;
+      --border:     #e2e8f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 1280px; height: 720px; overflow: hidden;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: var(--bg); color: var(--text);
+    }
+    .slide {
+      display: flex; flex-direction: column;
+      width: 1280px; height: 720px;
+      padding: 32px 44px 24px; gap: 18px;
+    }
+    .header { display: flex; flex-direction: column; gap: 4px; }
+    .module-label {
+      font-size: 11.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.8px; color: var(--accent);
+    }
+    .section-title { font-size: 30px; font-weight: 800; color: var(--text); line-height: 1.15; }
+    .section-subtitle { font-size: 13.5px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.3px; }
+    .divider { width: 56px; height: 3px; background: var(--primary); border-radius: 2px; margin-top: 8px; }
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr); gap: 14px; flex: 1;
+    }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 22px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; }
+    .card-icon { font-size: 22px; line-height: 1; }
+    .card-title { font-size: 14.5px; font-weight: 700; color: var(--text); }
+    .card-list { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+    .card-list li {
+      font-size: 12px; color: var(--text-muted);
+      padding-left: 14px; position: relative; line-height: 1.5;
+    }
+    .card-list li::before { content: "›"; position: absolute; left: 0; color: var(--primary); font-weight: 800; }
+    .card.accent { background: #064e3b; border-color: #064e3b; }
+    .card.accent .card-title { color: #ffffff; }
+    .card.accent .card-list li { color: rgba(255,255,255,0.82); }
+    .card.accent .card-list li::before { color: rgba(255,255,255,0.5); }
+    .footer {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--text-muted);
+      border-top: 1px solid var(--border); padding-top: 10px;
+    }
+    .footer-right { font-weight: 600; letter-spacing: 0.3px; }
+  </style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <span class="module-label">Module 4 · Interactive Visualization with Plotly</span>
+    <h1 class="section-title">Section 1: Introduction to Plotly and Interactive Charts</h1>
+    <p class="section-subtitle">Why Plotly · Plotly Express · Hover Data · Animations · HTML Export</p>
+    <div class="divider"></div>
+  </div>
+  <div class="cards-grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">✨</span>
+          <span class="card-title">Why Interactive Visualization?</span>
+        </div>
+        <ul class="card-list"><li>Viewers explore the data themselves — progressive disclosure</li><li>Hover tooltips replace cluttered data labels</li><li>Zoom, pan, and filter without creating new charts</li><li>HTML output embeds in any webpage or LMS</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">⚡</span>
+          <span class="card-title">Plotly Express (px)</span>
+        </div>
+        <ul class="card-list"><li>High-level API: <code>px.line(df, x="date", y="sales")</code></li><li>Automatic hover, legend, and color mapping</li><li>Charts: line, bar, scatter, pie, histogram, box, violin</li><li><code>color</code>, <code>size</code>, <code>facet_col</code>, <code>animation_frame</code></li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🖱️</span>
+          <span class="card-title">Hover & Tooltips</span>
+        </div>
+        <ul class="card-list"><li><code>hover_data=["col1","col2"]</code> adds fields to tooltip</li><li><code>hover_name="col"</code> sets bold title in hover box</li><li>Custom labels: <code>labels={"sales": "Revenue ($)"}</code></li><li>Template: <code>hovertemplate="$%{y:,.0f}"</code></li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">🎬</span>
+          <span class="card-title">Animations</span>
+        </div>
+        <ul class="card-list"><li><code>animation_frame="year"</code> adds a play button</li><li><code>animation_group="id"</code> tracks entities over time</li><li>Fix axes: set <code>range_x</code> / <code>range_y</code> for stability</li><li>Best for: showing change over time interactively</li></ul>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">💾</span>
+          <span class="card-title">Exporting Plotly Charts</span>
+        </div>
+        <ul class="card-list"><li><code>fig.write_html("chart.html")</code> — fully interactive</li><li><code>fig.write_image("chart.png")</code> — static (needs kaleido)</li><li>Embed HTML output in Jupyter, web pages, or emails</li><li><code>fig.show()</code> renders inline in notebooks</li></ul>
+      </div>
+      <div class="card accent">
+        <div class="card-header">
+          <span class="card-icon">🧪</span>
+          <span class="card-title">Lab 1 — Interactive Plotly Charts</span>
+        </div>
+        <ul class="card-list"><li>Part A: Interactive sales performance line explorer</li><li>Part B: Marketing campaign ROI interactive scatter</li><li>Customize hover templates and color by category</li><li>Export both charts as standalone HTML files</li></ul>
+      </div>
+  </div>
+  <div class="footer">
+    <span>MKTG 1173 · Data Visualization</span>
+    <span class="footer-right">Viz_S13.ipynb</span>
+  </div>
+</div>
+</body>
+</html>
